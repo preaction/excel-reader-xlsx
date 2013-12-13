@@ -22,10 +22,12 @@ subtest 'temp directory cleanup' => sub {
     my $tmpdir;
     {
         my $xl = Excel::Reader::XLSX->new;
-        $xl->read_file( catfile( $Bin, 'regression', 'xlsx_files', 'data01.xlsx' ) );
+        my $wb = $xl->read_file( catfile( $Bin, 'regression', 'xlsx_files', 'data01.xlsx' ) );
         $tmpdir = $xl->{_package_dir};
+        $xl = undef;
+        ok -e $tmpdir, '_package_dir is maintained by Excel::Reader::XLSX::Workbook object';
     }
-    ok !-e $tmpdir, '_package_dir is cleaned up after object is destroyed';
+    ok !-e $tmpdir, '_package_dir is cleaned up after all objects are destroyed';
 };
 
 done_testing;

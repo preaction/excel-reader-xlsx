@@ -43,12 +43,14 @@ sub new {
 
     my $class          = shift;
     my $package_dir    = shift;
+    my $tempdir        = shift;
     my $shared_strings = shift;
     my %files          = @_;
 
     my $self = Excel::Reader::XLSX::Package::XMLreader->new();
 
     $self->{_package_dir}          = $package_dir;
+    $self->{_temp_obj}             = $tempdir;
     $self->{_shared_strings}       = $shared_strings;
     $self->{_files}                = \%files;
     $self->{_worksheets}           = undef;
